@@ -3,4 +3,7 @@ class Product < ApplicationRecord
 
   has_many :wrestlerproducts
   has_many :wrestler, through: :wrestlerproducts
+
+  has_many :productorders
+  has_many :order, through: :productorders
 end

@@ -22,10 +22,10 @@ data.each do |row|
       if p.price.blank?
         p.producttype = producttype
         p.price = (row['price'].to_d * 100 ).to_i
+        p.stocklevel = rand(5..100)
         p.save
       end
     end
-
      Wrestlerproduct.create(wrestler: wrestler, product: product)
   end
 

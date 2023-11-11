@@ -10,7 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_11_161942) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_11_231040) do
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "province"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "paytype"
+    t.integer "payamount"
+    t.integer "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+  end
+
+  create_table "productorders", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "sellprice"
+    t.integer "product_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_productorders_on_order_id"
+    t.index ["product_id"], name: "index_productorders_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -18,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_11_161942) do
     t.integer "producttype_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "stocklevel"
     t.index ["producttype_id"], name: "index_products_on_producttype_id"
   end
 
@@ -42,6 +72,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_11_161942) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "orders", "customers"
+  add_foreign_key "productorders", "orders"
+  add_foreign_key "productorders", "products"
   add_foreign_key "products", "producttypes"
   add_foreign_key "wrestlerproducts", "products"
   add_foreign_key "wrestlerproducts", "wrestlers"

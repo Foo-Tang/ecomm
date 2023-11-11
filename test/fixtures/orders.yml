@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paytype: MyString
+  payamount: 1
+  customer: one
+
+two:
+  paytype: MyString
+  payamount: 1
+  customer: two
