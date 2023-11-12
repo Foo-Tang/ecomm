@@ -5,6 +5,7 @@ Wrestlerproduct.destroy_all
 Product.destroy_all
 Wrestler.destroy_all
 Producttype.destroy_all
+AdminUser.destroy_all
 
 file = Rails.root.join('db/data4.csv')
 
@@ -28,5 +29,6 @@ data.each do |row|
     end
      Wrestlerproduct.create(wrestler: wrestler, product: product)
   end
-
 end
+
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

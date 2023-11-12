@@ -1,0 +1,17 @@
+<div class="column is-one-fifth">
+  <div class="card box">
+    <% if product.image.present? %>
+    <div class="card-image">
+      <figure class="image is-2-5">
+        <%= image_tag product.image.variant(resize_to_limit:[250,250]) %>
+      </figure>
+    </div>
+    <%end%>
+    <div class="card-content has-text-centered mt-2">
+      <p class="title is-4"><%= product.name %></p>
+      <p>Category: <%=product.producttype.name%></p>
+      <p>Price: $<%=product.price%></p>
+      <p>Stock: <%=product.stocklevel%></p>
+    </div>
+  </div>
+</div>
