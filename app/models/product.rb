@@ -8,4 +8,6 @@ class Product < ApplicationRecord
   has_many :order, through: :productorders
 
   has_one_attached :image
+
+  paginates_per 50
 end

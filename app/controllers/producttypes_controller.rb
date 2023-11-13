@@ -4,5 +4,6 @@ class ProducttypesController < ApplicationController
   end
 
   def show
+    @producttype = Producttype.find(params[:id])
   end
 end

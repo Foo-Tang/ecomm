@@ -4,5 +4,6 @@ class WrestlersController < ApplicationController
   end
 
   def show
+    @wrestler = Wrestler.find(params[:id])
   end
 end
