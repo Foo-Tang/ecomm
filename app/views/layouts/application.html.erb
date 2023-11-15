@@ -13,6 +13,7 @@
 
   <body>
     <%= render partial: 'common/menu'%>
+    <%= render_breadcrumbs :separator => ' / '%>
     <%= yield %>
   </body>
 </html>
