@@ -1,4 +1,5 @@
-<div class="column is-one-fifth">
+<div class="column is-one-third">
+  <%= link_to product do %>
   <div class="card box">
     <% if product.image.present? %>
     <div class="card-image">
@@ -9,9 +10,7 @@
     <%end%>
     <div class="card-content has-text-centered mt-2">
       <p class="title is-4"><%= product.name %></p>
-      <p>Category: <%=product.producttype.name%></p>
-      <p>Price: $<%=product.price%></p>
-      <p>Stock: <%=product.stocklevel%></p>
     </div>
   </div>
+  <%end%>
 </div>

@@ -1,2 +1,27 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="columns">
+        <div class="column is-two-fifths">
+          <div class="card-image p-5">
+            <figure class="image is-2by4">
+              <% if @product.image.present? %>
+              <%= image_tag(@product.image, alt: @product.name) %>
+              <%end%>
+            </figure>
+          </div>
+        </div>
+        <div class="column p-5 is-vcentered">
+          <div class="column p-4 has-background-primary-light">
+            <div class="card-content">
+              <div class="card-content block">
+                <h1 class="title"><%= @product.name %></h1>
+                <p>Category: <%=@product.producttype.name%></p>
+                <p>Price: $<%=(@product.price.to_d / 100)%></p>
+                <p>Stock: <%=@product.stocklevel%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
