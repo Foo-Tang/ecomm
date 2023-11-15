@@ -22,7 +22,7 @@ data.each do |row|
     product = Product.find_or_initialize_by(name: row['product']) do |p|
       if p.price.blank?
         p.producttype = producttype
-        p.price = (row['price'].to_d * 100 ).to_i
+        p.price = row['price']
         p.stocklevel = rand(5..100)
         p.save
       end
