@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  add_breadcrumb "home", :root_path
+  add_breadcrumb "Home", :root_path
 
   def index
     @products = Product.order(:name).page params[:page]

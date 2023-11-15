@@ -1,5 +1,5 @@
 class WrestlersController < ApplicationController
-  add_breadcrumb "home", :root_path
+  add_breadcrumb "Home", :root_path
 
   def index
     add_breadcrumb "Wrestlers", wrestlers_path
