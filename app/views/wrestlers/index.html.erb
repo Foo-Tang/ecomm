@@ -1,2 +1,17 @@
-<h1>Wrestlers#index</h1>
-<p>Find me in app/views/wrestlers/index.html.erb</p>
+<section class="content hero is-primary pl-6 mt-4">
+  <div class="hero-body">
+    <h1 class="title">Wrestlers</h1>
+    <p class="subtitle mt-2"></p>
+  </div>
+</section>
+<div class="container pt-5 has-text-centered">
+  <div class="columns is-multiline mt-5">
+    <% for wrestler in @wrestlers %>
+      <div class="column is-half block">
+        <p class="subtitle is-5"><%= link_to wrestler.name, wrestler %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="section">
+</div>

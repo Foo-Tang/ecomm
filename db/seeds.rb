@@ -5,6 +5,7 @@ Wrestlerproduct.destroy_all
 Product.destroy_all
 Wrestler.destroy_all
 Producttype.destroy_all
+AdminUser.destroy_all
 
 file = Rails.root.join('db/data4.csv')
 
@@ -21,12 +22,13 @@ data.each do |row|
     product = Product.find_or_initialize_by(name: row['product']) do |p|
       if p.price.blank?
         p.producttype = producttype
-        p.price = (row['price'].to_d * 100 ).to_i
+        p.price = row['price']
         p.stocklevel = rand(5..100)
         p.save
       end
     end
      Wrestlerproduct.create(wrestler: wrestler, product: product)
   end
-
 end
+
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
