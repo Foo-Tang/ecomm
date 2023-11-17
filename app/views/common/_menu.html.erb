@@ -9,16 +9,37 @@
       </div>
       <div class="navbar-item">
         <%= link_to 'Wrestlers', wrestlers_path%>
-      <div class="navbar-item">
-        <%#= link_to 'About', pages_about_path%>
-      </div>
-    </div>
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="level">
-          <!-- search form -->
+        <div class="navbar-item">
+          <%#= link_to 'About', pages_about_path%>
         </div>
       </div>
-    </div>
-  </nav>
-</header>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="level">
+            <!-- search form -->
+          </div>
+        </div>
+        <div class="navbar-item">
+          <details>
+            <summary>
+              Cart
+              <% if cart.present? %>
+                <sup><%= cart.size %></sup>
+              <% end %>
+            </summary>
+            <% if cart.present? %>
+              <ul>
+                <% cart.each do |product| %>
+                  <li>
+                    <%= product.name %> <%= link_to '❌', cart_path(product.id), method: :delete %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p>No items in your cart.</p>
+            <% end %>
+          </details>
+        </div>
+      </div>
+    </nav>
+  </header>

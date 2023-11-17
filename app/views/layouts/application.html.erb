@@ -12,50 +12,8 @@
   <body>
     <%= render partial: 'common/menu'%>
     <%= render_breadcrumbs :separator => ' / '%>
-    <ul>
-      <li>
-        cart
-        <% if cart.present? %>
-          <sup><%= cart.size %></sup>
-          <ul>
-            <% cart.each do |product| %>
-              <li>
-                <%= product.name %><%= link_to '➖', cart_path(product), method: :delete %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-      </li>
-    </ul>
     <main>
-      <p><%= debug session[:shopping_cart] %></p>
-      <% if flash[:notice] %>
-        <p><%= flash[:notice] %></p>
-      <% end %>
       <%= yield %>
     </main>
-    <footer>
-      <details>
-        <summary>
-          Cart
-          <% if cart.present? %>
-            <sup><%= cart.size %></sup>
-          <% end %>
-        </summary>
-        <% if cart.present? %>
-          <ul>
-            <% cart.each do |product| %>
-              <li>
-                <%= product.name %> <%= link_to '❌', cart_path(product.id), method: :delete %>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p>No items in your cart.</p>
-        <% end %>
-      </details>
-      <hr>
-      <p><span>🐐</span> Goats in Coats <span>🧥</span> - Copywrong <%= Time.current.year %></p>
-    </footer>
   </body>
 </html>

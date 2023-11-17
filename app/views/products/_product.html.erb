@@ -1,7 +1,7 @@
 <div class="column is-one-third">
   <%= link_to product do %>
     <div class="card box">
-    <!-- Shows image if available -->
+      <!-- Shows image if available -->
       <% if product.image.present? %>
         <div class="card-image">
           <figure class="image is-2-5">
@@ -16,13 +16,17 @@
       </div>
       <!--Add to cart buttons for cards -->
       <% if cart.include?(product) %>
-        <%= button_to cart_path(product), method: :delete do %>
+        <%= button_to cart_path(product),
+        method: :delete,
+        class: "button is-primary" do %>
           X Remove From Cart
         <% end %>
       <% else %>
-        <%= form_with url: cart_index_path, method: :post do %>
+        <%= form_with url: cart_index_path,
+        method: :post,
+        class: "button is-primary" do %>
           <%= hidden_field_tag(:id, product.id) %>
-          <%= button_tag 'Add to Cart' %>
+          <%= button_tag 'Add to Cart', style: "background: none; border: none;" %>
         <% end %>
       <% end %>
     </div>
