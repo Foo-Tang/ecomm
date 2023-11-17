@@ -1,6 +1,7 @@
 <div class="column is-one-third">
   <%= link_to product do %>
     <div class="card box">
+    <!-- Shows image if available -->
       <% if product.image.present? %>
         <div class="card-image">
           <figure class="image is-2-5">
@@ -8,14 +9,21 @@
           </figure>
         </div>
       <%end%>
+      <!-- product name and price -->
       <div class="card-content has-text-centered mt-2">
         <p class="title is-4"><%= product.name %></p>
         <p>Price: <%= number_to_currency product.price / 100.0 %></p>
       </div>
       <!--Add to cart buttons for cards -->
-      <%= form_with url: cart_index_path, method: :post do %>
-        <%= hidden_field_tag(:id, product.id) %>
-        <%= button_tag 'Add to Cart' %>
+      <% if cart.include?(product) %>
+        <%= button_to cart_path(product), method: :delete do %>
+          X Remove From Cart
+        <% end %>
+      <% else %>
+        <%= form_with url: cart_index_path, method: :post do %>
+          <%= hidden_field_tag(:id, product.id) %>
+          <%= button_tag 'Add to Cart' %>
+        <% end %>
       <% end %>
     </div>
   <%end%>
