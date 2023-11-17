@@ -22,7 +22,7 @@
               <div class="card-content block">
                 <h1 class="title"><%= @product.name %></h1>
                 <p>Category: <%=@product.producttype.name%></p>
-                <p>Price: <%= number_to_currency @product.price / 100.0 %></p>
+                <p>Price: <%= number_to_currency @product.price %></p>
                 <p>Stock: <%=@product.stocklevel%></p>
               </div>
               <!--Add to cart buttons for cards -->

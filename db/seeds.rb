@@ -19,7 +19,7 @@ data.each do |row|
   wrestler = Wrestler.find_or_create_by(name: row['name'])
 
   if producttype.valid? && wrestler.valid?
-    product = Product.find_or_initialize_by(name: row['product']) do |p|
+    product = Product.find_or_initialize_by(name: row['product'].strip) do |p|
       if p.price.blank?
         p.producttype = producttype
         p.price = row['price']

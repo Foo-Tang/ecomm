@@ -11,6 +11,7 @@ class Product < ApplicationRecord
 
   paginates_per 50
 
-  validates :name, :price, :stocklevel, presence: true
-  validates :price_cents, numericality: { only_integer: true }
+  validates :name, presence: true
+  validates :price, numericality: true
+  validates :stocklevel, numericality: {only_integer: true}
 end
