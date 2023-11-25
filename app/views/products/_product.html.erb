@@ -16,21 +16,7 @@
       <%end%>
     </div>
     <footer class="card-footer">
-      <!--Add to cart buttons for cards -->
-      <% if cart.include?(product) %>
-        <%= button_to cart_path(product),
-        method: :delete,
-        class: "card-footer-item" do %>
-          X Remove From Cart
-        <% end %>
-      <% else %>
-        <%= form_with url: cart_index_path,
-        method: :post,
-        class: "card-footer-item" do %>
-          <%= hidden_field_tag(:id, product.id) %>
-          <%= button_tag 'Add to Cart' %>
-        <% end %>
-      <% end %>
+      <%= button_to "Buy", checkout_create_path, params: {id: product.id}, remote: true   %>
     </footer>
   </div>
 </div>

@@ -7,7 +7,8 @@ Rails.application.routes.draw do
       get "updated"
     end
   end
-  resources :cart, only: %i[create destroy]
+  resources :checkout, only: %i[create]
+  post "checkout/create", to: "checkout#create"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
