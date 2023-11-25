@@ -46,6 +46,12 @@
               </li>
             <% end %>
           </ul>
+          <div>
+          <%= form_with url: checkout_create_path, remote: true do %>
+          <%#= hidden_field_tag(:product_id, product.id) %>
+          <%= button_tag 'Buy Now 💳' %>
+          </div>
+          <%end%>
         <% else %>
           <p>No items in your cart.</p>
         <% end %>
