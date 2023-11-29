@@ -12,7 +12,7 @@
     <div class="card-content has-text-centered mt-2">
       <%= link_to product do %>
         <p class="title is-5"><%= product.name %></p>
-        <p class="subtitle"><%= number_to_currency product.price%></p>
+        <p class="subtitle"><%= number_to_currency product.price / 100%></p>
       <%end%>
     </div>
     <footer class="card-footer">
