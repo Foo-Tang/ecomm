@@ -15,7 +15,7 @@ class CheckoutController < ApplicationController
       end
       items << {
         price_data: {
-          unit_amount:  (product.price * 100).to_i,
+          unit_amount:  product.price.to_i,
           currency:     "cad",
           product_data: {
             name:        product.name,
@@ -31,15 +31,13 @@ class CheckoutController < ApplicationController
       mode:                 "payment",
       success_url:          root_url,
       cancel_url:           root_url,
-      line_items:           items # + [
-      #   {
-      #     name: 'GST',
-      #     description: 'Goods and Services Tax',
-      #     amount: 4, #(product.price_cents * 0.05).to_i,
-      #     currency: 'cad',
-      #     quantity: 1
-      #   }
-      # ]
+      line_items:           items,
+      tax_id_collection:    { enabled: true }
+      # customer_update:             {
+      #   name:    "auto",
+      #   address: "auto"
+      # },
+      # shipping_address_collection: { allowed_countries: ["CA"] }
     )
     redirect_to @session.url, allow_other_host: true
   end
