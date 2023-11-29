@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :products
   resources :wrestlers
   resources :producttypes
+  resources :abouts
 end
