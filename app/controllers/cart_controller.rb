@@ -1,23 +1,30 @@
 class CartController < ApplicationController
+
   def create
-    # log product to terminal
-    logger.debug("Adding #{params[:id]} to cart")
     id = params[:id].to_i
-    # pushes id onto the end of array
-    unless session[:shopping_cart].include?(id)
-      session[:shopping_cart] << id
-      product = Product.find(id)
-      flash[:notice] = "+ #{product.name} added to cart."
+    qty = params[:qty].to_i
+
+    if Product.find(id).stocklevel > qty
+      unless session[:shopping_cart].include?(id)
+        order = { id => qty}
+        session[:shopping_cart] << order
+        product = Product.find(id)
+        flash[:notice] = "+ #{product.name} added to cart"
+      else
+        session[:shopping_cart][id] = qty
+        flash[:notice] = "Quantity Updated"
+      end
+    else
+      flash[:notice] = "Not Enough Stock"
     end
     redirect_to root_path
   end
 
   def destroy
-    logger.debug("Removing #{params[:id]} from cart")
     id = params[:id].to_i
     session[:shopping_cart].delete(id)
     product = Product.find(id)
-    flash[:notice] = "➖ #{product.name} removed from cart."
+    flash[:notice] = "➖ #{product.name} removed from cart"
     redirect_to root_path
   end
 end

@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   def cart
     # you can pass an array of ids, and you'll get back the collection
-    Product.find(session[:shopping_cart])
+    all_keys = session[:shopping_cart].flat_map(&:keys).uniq
+    Product.find(all_keys)
   end
 end
