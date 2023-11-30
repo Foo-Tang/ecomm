@@ -1,24 +1,10 @@
-# README
+# Powerslamverse E-commerce store
+Foo Tang & Chelsea Bahsler
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A fullstack ecommerce store for the wrestling company Powerslam Universe.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Tech:
+* Ruby on Rails
+* Sqlite3 (dev) / PostgreSql (production)
+* stripe - cart checkout
+* deployed to Fly.io
