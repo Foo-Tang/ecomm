@@ -6,10 +6,10 @@ ruby "3.1.2"
 gem "activeadmin", "~> 2.14.0"
 gem "devise"
 
-gem 'kaminari'
-gem 'breadcrumbs_on_rails'
+gem "kaminari"
+gem "breadcrumbs_on_rails"
 
-gem 'stripe'
+gem "stripe"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
@@ -51,10 +51,10 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
 # Use Sass to process CSS
- gem "sassc-rails"
+gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
- gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -76,5 +76,14 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-
 end
+
+group :production do
+  gem "pg"
+end
+
+gem "dockerfile-rails", ">= 1.5", :group => :development
+
+gem "sentry-ruby", "~> 5.14"
+
+gem "sentry-rails", "~> 5.14"
