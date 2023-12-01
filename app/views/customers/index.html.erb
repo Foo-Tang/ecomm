@@ -1,0 +1,11 @@
+<h1>Shipping Address</h1>
+<%= form_with model: @customer do |form|%>
+  <%= form.label :name, "Full Name:"%>
+  <%= form.text_field :name %>
+  <%= form.label :address, "Address:"%>
+  <%= form.text_field :address %>
+  <%= form.label :province_id, "Province:"%>
+  <%= form.collection_select :province_id, @provinces, :id, :abbr %>
+  <%= form.label :postal_code, "Postal Code:"%>
+  <%= form.text_field :postal_code %>
+<%end%>

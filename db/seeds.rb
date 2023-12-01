@@ -1,11 +1,18 @@
 require 'csv'
 
-
+Province.destroy_all
 Wrestlerproduct.destroy_all
 Product.destroy_all
 Wrestler.destroy_all
 Producttype.destroy_all
 AdminUser.destroy_all
+
+json_data = File.read(Rails.root.join('db/provs.json'))
+parse_data = JSON.parse(json_data)
+
+parse_data.each do |ab, name|
+  Province.create(name: name, abbr: ab)
+end
 
 file = Rails.root.join('db/data4.csv')
 
