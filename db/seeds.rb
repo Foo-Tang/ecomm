@@ -1,5 +1,7 @@
 require 'csv'
+require 'net/http'
 
+Taxcode.destroy_all
 Productorder.destroy_all
 Order.destroy_all
 Customer.destroy_all
@@ -17,10 +19,17 @@ parse_data.each do |ab, name|
   Province.create(name: name, abbr: ab)
 end
 
+url = 'https://api.salestaxapi.ca/v2/province/all'
+uri = URI(url)
+response = Net::HTTP.get(uri)
+tax_data = JSON.parse(response)
+
+tax_data.each do |key, value|
+  tax = Taxcode.create(province: key, pst: value['pst'], hst: value['hst'], gst: value['gst'], applicable: value['applicable'])
+end
+
 file = Rails.root.join('db/data4.csv')
-
 csv_data = File.read(file)
-
 data = CSV.parse(csv_data, headers:true, encoding: 'UTF-8')
 
 data.each do |row|

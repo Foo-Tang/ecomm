@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_02_193552) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_02_225439) do
   create_table "abouts", force: :cascade do |t|
     t.text "contact"
     t.text "about"
@@ -122,6 +122,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_02_193552) do
   create_table "provinces", force: :cascade do |t|
     t.string "name"
     t.string "abbr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "taxcodes", force: :cascade do |t|
+    t.string "province"
+    t.decimal "pst"
+    t.decimal "hst"
+    t.decimal "gst"
+    t.decimal "applicable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
