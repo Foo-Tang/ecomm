@@ -5,9 +5,10 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.new(customer_params)
-    if @customer.save
-      redirect_to orders_path
+    customer = Customer.new(customer_params)
+    if customer.save
+      session[:customer] = customer.id
+      redirect_to new_order_path
     else
       render :new
     end

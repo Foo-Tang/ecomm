@@ -23,4 +23,5 @@ Rails.application.routes.draw do
   resources :producttypes
   resources :abouts
   resources :customers
+  resources :orders
 end

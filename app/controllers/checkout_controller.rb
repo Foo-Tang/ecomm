@@ -15,7 +15,7 @@ class CheckoutController < ApplicationController
       end
       items << {
         price_data: {
-          unit_amount:  product.price.to_i,
+          unit_amount:  (product.price * 100).to_i,
           currency:     "cad",
           product_data: {
             name:        product.name,
@@ -27,12 +27,12 @@ class CheckoutController < ApplicationController
     end
 
     @session = Stripe::Checkout::Session.create(
-      payment_method_types: ["card"],
+      # payment_method_types: ["card"],
       mode:                 "payment",
-      success_url:          root_url,
-      cancel_url:           root_url,
+      success_url:          checkout_success_url + "?session_id={checkout_session_id}",
+      cancel_url:           checkout_cancel_url,
       line_items:           items,
-      tax_id_collection:    { enabled: true }
+      #tax_id_collection:    { enabled: true }
       # customer_update:             {
       #   name:    "auto",
       #   address: "auto"
@@ -43,8 +43,10 @@ class CheckoutController < ApplicationController
   end
 
   def success
-    Stripe::Checkout::Session.retrieve(params[:session_id])
-    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    #Stripe::Checkout::Session.retrieve(params[:session_id])
+    #@payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    reset_session
+    redirect_to root_path
   end
 
   def cancel; end

@@ -1,5 +1,8 @@
 require 'csv'
 
+Productorder.destroy_all
+Order.destroy_all
+Customer.destroy_all
 Province.destroy_all
 Wrestlerproduct.destroy_all
 Product.destroy_all
