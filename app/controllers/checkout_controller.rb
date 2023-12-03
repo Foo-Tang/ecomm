@@ -7,22 +7,23 @@ class CheckoutController < ApplicationController
     # end
 
     items = []
-    session[:shopping_cart].each do |id|
-      product = Product.find(id)
+    order = Order.find(session[:order])
+    order.productorders.all? do |p|
+      product = Product.find(p.product_id)
       if product.nil?
         redirect_to root_path
         return
       end
       items << {
         price_data: {
-          unit_amount:  (product.price * 100).to_i,
+          unit_amount:  (p.sellprice * 100).to_i,
           currency:     "cad",
           product_data: {
             name:        product.name,
             description: product.description
           }
         },
-        quantity:   1
+        quantity:   p.quantity
       }
     end
 
@@ -40,7 +41,7 @@ class CheckoutController < ApplicationController
 
     @session = Stripe::Checkout::Session.create(
       mode:                 "payment",
-      success_url:          checkout_success_url + "?session_id={checkout_session_id}",
+      success_url:          checkout_success_url + "?session_id={CHECKOUT_SESSION_ID}",
       cancel_url:           checkout_cancel_url,
       line_items:           items,
     )
@@ -48,8 +49,11 @@ class CheckoutController < ApplicationController
   end
 
   def success
-    #Stripe::Checkout::Session.retrieve(params[:session_id])
+    #session = Stripe::Checkout::Session.retrieve(params[:session_id])
     #@payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+
+    Order.find(session[:order]).update(status: 'paid', paymentid: params[:session_id] )
+
     reset_session
     redirect_to root_path
   end

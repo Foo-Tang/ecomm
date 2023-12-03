@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
     order.customer = @customer
     order.paytype = 'credit'
     order.taxcode = @customer.province.tax_code
+    order.status = 'new'
     order.save
 
     subtotal = 0.00
@@ -15,7 +16,7 @@ class OrdersController < ApplicationController
     end
 
     @taxes = (Taxcode.find(order.taxcode).applicable) * subtotal
-
+    session[:order] = order.id
   end
 
   def create
