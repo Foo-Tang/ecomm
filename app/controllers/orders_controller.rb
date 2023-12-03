@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
   def new
+    @customer = Customer.find(session[:customer])
     order = Order.new()
-    order.customer = Customer.find(session[:customer])
+    order.customer = @customer
     order.paytype = 'credit'
+    order.taxcode = @customer.province.tax_code
     order.save
 
     subtotal = 0.00
@@ -12,8 +14,7 @@ class OrdersController < ApplicationController
       subtotal += product.price
     end
 
-    @taxes = subtotal * 0.05
-    @customer = order.customer
+    @taxes = (Taxcode.find(order.taxcode).applicable) * subtotal
 
   end
 

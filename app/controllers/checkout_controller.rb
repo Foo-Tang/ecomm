@@ -26,18 +26,23 @@ class CheckoutController < ApplicationController
       }
     end
 
+    # items << {
+    #   price_data: {
+    #     unit_amount:  (product.price * 100).to_i,
+    #     currency:     "cad",
+    #     product_data: {
+    #       name:        product.name,
+    #       description: product.description
+    #     }
+    #   },
+    #   quantity:   1
+    # }
+
     @session = Stripe::Checkout::Session.create(
-      # payment_method_types: ["card"],
       mode:                 "payment",
       success_url:          checkout_success_url + "?session_id={checkout_session_id}",
       cancel_url:           checkout_cancel_url,
       line_items:           items,
-      #tax_id_collection:    { enabled: true }
-      # customer_update:             {
-      #   name:    "auto",
-      #   address: "auto"
-      # },
-      # shipping_address_collection: { allowed_countries: ["CA"] }
     )
     redirect_to @session.url, allow_other_host: true
   end
