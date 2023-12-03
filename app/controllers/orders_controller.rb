@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
     @customer = Customer.find(session[:customer])
     order = Order.new()
     order.customer = @customer
-    order.paytype = 'credit'
     order.taxcode = @customer.province.tax_code
     order.status = 'new'
     order.save
@@ -12,7 +11,7 @@ class OrdersController < ApplicationController
     session[:shopping_cart].each do |id|
       product = Product.find(id)
       order.productorders.create(product_id: product.id, sellprice: product.price, quantity: 1)
-      subtotal += product.price
+      subtotal += (product.price * product.quantity)
     end
 
     @taxes = (Taxcode.find(order.taxcode).applicable) * subtotal

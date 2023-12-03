@@ -8,12 +8,15 @@ class CheckoutController < ApplicationController
 
     items = []
     order = Order.find(session[:order])
+    subtotal = 0.00
+
     order.productorders.all? do |p|
       product = Product.find(p.product_id)
       if product.nil?
         redirect_to root_path
         return
       end
+      subtotal += (p.sellprice * p.quantity)
       items << {
         price_data: {
           unit_amount:  (p.sellprice * 100).to_i,
@@ -27,17 +30,18 @@ class CheckoutController < ApplicationController
       }
     end
 
-    # items << {
-    #   price_data: {
-    #     unit_amount:  (product.price * 100).to_i,
-    #     currency:     "cad",
-    #     product_data: {
-    #       name:        product.name,
-    #       description: product.description
-    #     }
-    #   },
-    #   quantity:   1
-    # }
+    taxes = (Taxcode.find(order.taxcode).applicable) * subtotal
+
+    items << {
+      price_data: {
+        unit_amount:  (taxes * 100).to_i,
+        currency:     "cad",
+        product_data: {
+          name:        "Taxes"
+        }
+      },
+      quantity:   1
+    }
 
     @session = Stripe::Checkout::Session.create(
       mode:                 "payment",
@@ -52,7 +56,7 @@ class CheckoutController < ApplicationController
     #session = Stripe::Checkout::Session.retrieve(params[:session_id])
     #@payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
 
-    Order.find(session[:order]).update(status: 'paid', paymentid: params[:session_id] )
+    Order.find(session[:order]).update(status: 'paid', paymentid: params[:session_id], paytype: 'credit' )
 
     reset_session
     redirect_to root_path
