@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   resources :wrestlers
   resources :producttypes
   resources :abouts
+  resources :customers
+  resources :orders
 end

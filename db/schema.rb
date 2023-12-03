@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_29_160035) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_03_164553) do
   create_table "abouts", force: :cascade do |t|
     t.text "contact"
     t.text "about"
@@ -75,10 +75,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_160035) do
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "province"
-    t.string "phone"
+    t.string "postal_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "province_id"
+    t.index ["province_id"], name: "index_customers_on_province_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -87,12 +88,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_160035) do
     t.integer "customer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "taxcode"
+    t.string "status"
+    t.string "paymentid"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
   create_table "productorders", force: :cascade do |t|
     t.integer "quantity"
-    t.integer "sellprice"
+    t.decimal "sellprice"
     t.integer "product_id", null: false
     t.integer "order_id", null: false
     t.datetime "created_at", null: false
@@ -118,6 +122,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_160035) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string "name"
+    t.string "abbr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "tax_code"
+  end
+
+  create_table "taxcodes", force: :cascade do |t|
+    t.string "province"
+    t.decimal "pst"
+    t.decimal "hst"
+    t.decimal "gst"
+    t.decimal "applicable"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "wrestlerproducts", force: :cascade do |t|
     t.integer "wrestler_id", null: false
     t.integer "product_id", null: false
@@ -135,6 +157,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_160035) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "customers", "provinces"
   add_foreign_key "orders", "customers"
   add_foreign_key "productorders", "orders"
   add_foreign_key "productorders", "products"

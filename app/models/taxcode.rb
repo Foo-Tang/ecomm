@@ -1,0 +1,2 @@
+class Taxcode < ApplicationRecord
+end
