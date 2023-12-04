@@ -1,0 +1,11 @@
+<% if cart.present? %>
+  <ul>
+    <% cart.each do |product| %>
+      <li>
+        <%= product.name %><%= link_to '❌', cart_path(product.id), method: :delete %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No items in your cart.</p>
+<% end %>

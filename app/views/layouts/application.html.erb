@@ -14,7 +14,6 @@
       <div class="message is-info"><%= flash.now[:notice] %></div>
     <% end %>
     <%= render partial: 'common/menu'%>
-    <%= render_breadcrumbs :separator => ' / '%>
     <main>
       <%= yield %>
     </main>
