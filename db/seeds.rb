@@ -3,6 +3,7 @@ require 'net/http'
 
 Productorder.destroy_all
 Order.destroy_all
+Orderstatus.destroy_all
 Customer.destroy_all
 Province.destroy_all
 Taxcode.destroy_all
@@ -29,6 +30,11 @@ parse_data.each do |ab, name|
   Province.create(name: name, abbr: ab, tax_code: code.id)
 end
 
+status = ['new', 'paid', 'shipped']
+
+status.each do |s|
+  Orderstatus.create(status: s)
+end
 
 file = Rails.root.join('db/data4.csv')
 csv_data = File.read(file)
