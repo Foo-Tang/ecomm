@@ -5,14 +5,14 @@
       <div class="column is-one-third">
         <h3 class="title"><%= link_to '🌠Powerslam', root_path %></h3>
       </div>
-      <div class="column">
-        <%= form_tag(search_path, method: :get, class: "field-has-addons") do %>
-          <p class="control">
+      <div class="column is-one-third">
+        <%= form_tag(search_path, method: :get, class: "") do %>
+          <div class="field is-grouped">
             <%= select_tag :set, options_for_select([['All Categories', '']] + Producttype.all.map {|pt| [pt.name, pt.id] }, params[:set]), :class => 'select has-text-centered' %>
-            <%= text_field_tag :search, params[:search], placeholder: 'Search by name', :class => 'input-is-expanded' %>
+            <%= text_field_tag :search, params[:search], placeholder: 'Search by name', :class => "input is-expanded" %>
             <%= submit_tag 'Search', name: nil, class: 'button' %>
-          </p>
-        <% end %>
+          <% end %>
+        </div>
       </div>
       <div class="column has-background-primary">
         <!-- change this to a button  -->
@@ -41,8 +41,6 @@
       <% end %>
     </details>
   </div>
-</div>
-</div>
 </nav>
 <!-- Bottom part of nav -->
 <nav id="bottom-nav" class="navbar" role="navigation" aria-label="dropdown navigation">
