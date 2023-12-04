@@ -1,59 +1,70 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-start">
-    <div class="navbar-item">
-      <%= link_to 'Home', root_path%>
-    </div>
-    <div class="navbar-item">
-      <%= link_to 'Categories', producttypes_path%>
-    </div>
-    <div class="navbar-item">
-      <%= link_to 'Wrestlers', wrestlers_path%>
-    </div>
-    <div class="navbar-item">
-      <%= link_to 'About Page', abouts_path%>
-    </div>
+<!-- top nav with search form and shopping cart -->
+<nav class="box columns p-4" role="navigation" aria-label="main navigation">
+  <div class="column is-full">
+    <div class="columns">
+      <div class="column is-one-third">
+        <h3 class="title"><%= link_to '🌠Powerslam', root_path %></h3>
+      </div>
+      <div class="column">
+        <%= form_tag(search_path, method: :get, class: "field-has-addons") do %>
+          <p class="control">
+            <%= select_tag :set, options_for_select([['All Categories', '']] + Producttype.all.map {|pt| [pt.name, pt.id] }, params[:set]), :class => 'select has-text-centered' %>
+            <%= text_field_tag :search, params[:search], placeholder: 'Search by name', :class => 'input-is-expanded' %>
+            <%= submit_tag 'Search', name: nil, class: 'button' %>
+          </p>
+        <% end %>
+      </div>
+      <div class="column has-background-primary">
+        <!-- change this to a button  -->
+        <summary>
+          <span class="icon">
+            <i class="fas fa-2x">🛒</i>
+          </span>
+        </span>
+        <% if cart.present? %>
+          <sup><%= cart.size %></sup>
+        <% end %>
+      </summary>
+      <% if cart.present? %>
+        <ul>
+          <% cart.each do |product| %>
+            <li>
+              <%= product.name %><%= link_to '❌', cart_path(product.id), method: :delete %>
+            </li>
+          <% end %>
+        </ul>
+        <div>
+          <%= button_to 'Checkout', new_customer_path, method: :get%>
+        </div>
+      <% else %>
+        <p>No items in your cart.</p>
+      <% end %>
+    </details>
   </div>
-  <div class="navbar-end">
-    <div class="navbar-item">
-      <!-- search form -->
-      <%= form_tag(search_path, method: :get, class: 'field is-grouped') do %>
-        <div class="control is-expanded">
-          <%= text_field_tag :search, params[:search], class: 'input is-small', placeholder: 'Search by name' %>
-        </div>
-        <div class="control is-narrow" style="width: 120px;">
-          <%= select_tag :set, options_for_select([['All Categories', '']] + Producttype.all.map { |pt| [pt.name, pt.id] }, params[:set]), class: 'select is-small' %>
-        </div>
-        <div class="control">
-          <%= submit_tag 'Search', name: nil, class: 'button is-info is-small' %>
-        </div>
+</div>
+</div>
+</nav>
+<!-- Bottom part of nav -->
+<nav id="bottom-nav" class="navbar" role="navigation" aria-label="dropdown navigation">
+  <div class="navbar-item has-dropdown">
+    <a class="navbar-link">Categories</a>
+    <div class="navbar-dropdown">
+      <% for producttype in Producttype.all %>
+        <p class="navbar-item"><%= link_to producttype.name, root_path %></p>
       <% end %>
     </div>
-    <div class="navbar-item">
-      <details>
-        <summary>
-          <div class="is-title">
-            🛒
-          </div>
-          <% if cart.present? %>
-            <sup><%= cart.size %></sup>
-          <% end %>
-        </summary>
-        <% if cart.present? %>
-          <ul>
-            <% cart.each do |product| %>
-              <li>
-                <%= product.name %> <%= link_to '❌', cart_path(product.id), method: :delete %>
-              </li>
-            <% end %>
-          </ul>
-          <div>
-            <%= button_to 'Checkout', new_customer_path, method: :get%>
-          </div>
-        <% else %>
-          <p>No items in your cart.</p>
-        <% end %>
-      </details>
-    </div>
   </div>
-
+  <div class="navbar-item">
+    <%= link_to 'Wrestlers', wrestlers_path%>
+  </div>
+  <div class="navbar-item">
+    <%= link_to 'New Products', new_product_path%>
+  </div>
+  <div class="navbar-item">
+    <%= link_to 'Updated', updated_products_path%>
+  </div>
+  <div class="navbar-item">
+    <%= link_to 'About Page', abouts_path%>
+  </div>
+</div>
 </nav>
