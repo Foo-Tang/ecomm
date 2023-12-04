@@ -55,8 +55,8 @@ class CheckoutController < ApplicationController
   def success
     #session = Stripe::Checkout::Session.retrieve(params[:session_id])
     #@payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
-
-    Order.find(session[:order]).update(status: 'paid', paymentid: params[:session_id], paytype: 'credit' )
+    status = Orderstatus.where(:status => 'paid').first
+    Order.find(session[:order]).update(orderstatus_id: status.id, paymentid: params[:session_id], paytype: 'credit' )
 
     reset_session
     redirect_to root_path
