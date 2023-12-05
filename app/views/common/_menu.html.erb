@@ -36,10 +36,18 @@
     </div>
   </div>
   <div class="column has-text-right">
-    <% if cart.size > 0%>
-      <%= button_to "🛒 Cart (#{cart.size})", new_customer_path, method: :get, class: 'button is-link' %>
-    <% else%>
-      <%= button_to "🛒 Cart", new_customer_path, method: :get, class: 'button is-link' %>
-    <% end %>
+    <div class="is-title">
+      <% if cart.size > 0%>
+        <%= button_to "🛒 Cart (#{cart.size})", new_customer_path, method: :get, class: 'button is-link' %>
+      <% else%>
+        <%= button_to "🛒 Cart", new_customer_path, method: :get, class: 'button is-link' %>
+      <% end %>
+    </div>
+    <details>
+      <summary>
+        <p>view cart</p>
+      </summary>
+      <%= render "cart/items" %>
+    </details>
   </div>
 </nav>
