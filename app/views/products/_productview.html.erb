@@ -1,13 +1,15 @@
 <section class="section">
-  <div class="columns is-multiline">
-    <% if @products.present? %>
-      <%= render partial: 'products/product', collection: @products %>
-    <% else %>
-      <div class="column is-full">
-        <div class="notification is-warning has-text-centered">
-          No cards found.
+  <div class="container is-widescreen">
+    <div class="columns is-multiline">
+      <% if @products.present? %>
+        <%= render partial: 'products/product', collection: @products %>
+      <% else %>
+        <div class="column is-full">
+          <div class="notification is-warning has-text-centered">
+            No cards found.
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </section>
   <%= paginate @products %>

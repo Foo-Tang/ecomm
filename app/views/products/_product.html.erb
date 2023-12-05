@@ -9,26 +9,20 @@
       </div>
     <%end%>
     <!-- product name and price -->
-    <div class="card-content has-text-centered mt-2">
-      <%= link_to product do %>
-        <p class="title is-5"><%= product.name %></p>
-        <p class="subtitle"><%= number_to_currency product.price%></p>
-      <%end%>
+    <div class="card-content has-text-centered">
+      <p class=""><%= link_to product.name, product %></p>
+      <p class="subtitle mt-2"><%= link_to number_to_currency(product.price), product%></p>
     </div>
-    <footer class="card-footer">
+    <footer class="card-footer is-justify-content-center">
       <!--Add to cart buttons for cards -->
       <% if cart.include?(product) %>
-        <%= button_to cart_path(product),
-        method: :delete,
-        class: "card-footer-item" do %>
+        <%= link_to cart_path(product), method: :delete, class: "card-footer-item" do %>
           X Remove From Cart
         <% end %>
       <% else %>
-        <%= form_with url: cart_index_path,
-        method: :post,
-        class: "card-footer-item" do %>
+        <%= form_with url: cart_index_path, method: :post do %>
           <%= hidden_field_tag(:id, product.id) %>
-          <%= button_tag 'Add to Cart' %>
+          <%= link_to 'Add to Cart', class: "card-footer-item" %>
         <% end %>
       <% end %>
     </footer>
