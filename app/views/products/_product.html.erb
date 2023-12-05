@@ -24,13 +24,13 @@
     <footer class="card-footer is-justify-content-center py-3">
       <!--Add to cart buttons for cards -->
       <% if cart.include?(product) %>
-        <%= link_to cart_path(product), method: :delete, class: "card-footer-item" do %>
+        <%= button_to cart_path(product), method: :delete, class: "card-footer-item" do %>
           X Remove From Cart
         <% end %>
       <% else %>
         <%= form_with url: cart_index_path, method: :post do %>
           <%= hidden_field_tag(:id, product.id) %>
-          <%= link_to 'Add to Cart', class: "card-footer-item" %>
+          <%= button_tag 'Add to Cart', class: "card-footer-item" %>
         <% end %>
       <% end %>
     </footer>
