@@ -1,26 +1,43 @@
 require 'csv'
+require 'net/http'
 
 Productorder.destroy_all
 Order.destroy_all
+Orderstatus.destroy_all
 Customer.destroy_all
 Province.destroy_all
+Taxcode.destroy_all
 Wrestlerproduct.destroy_all
 Product.destroy_all
 Wrestler.destroy_all
 Producttype.destroy_all
 AdminUser.destroy_all
 
+url = 'https://api.salestaxapi.ca/v2/province/all'
+uri = URI(url)
+response = Net::HTTP.get(uri)
+tax_data = JSON.parse(response)
+
+tax_data.each do |key, value|
+  tax = Taxcode.create(province: key, pst: value['pst'], hst: value['hst'], gst: value['gst'], applicable: value['applicable'])
+end
+
 json_data = File.read(Rails.root.join('db/provs.json'))
 parse_data = JSON.parse(json_data)
 
 parse_data.each do |ab, name|
-  Province.create(name: name, abbr: ab)
+  code = Taxcode.where("lower(province) = ?", ab.downcase).first
+  Province.create(name: name, abbr: ab, tax_code: code.id)
+end
+
+status = ['new', 'paid', 'shipped']
+
+status.each do |s|
+  Orderstatus.create(status: s)
 end
 
 file = Rails.root.join('db/data4.csv')
-
 csv_data = File.read(file)
-
 data = CSV.parse(csv_data, headers:true, encoding: 'UTF-8')
 
 data.each do |row|
