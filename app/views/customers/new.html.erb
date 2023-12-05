@@ -1,48 +1,46 @@
 <div class="section">
   <div class="container">
-    <h1>Shipping Address</h1>
+    <h1 class="title">Shipping Address</h1>
     <%= form_with model: @customer do |form|%>
       <!-- name input -->
       <div class="field">
         <%= form.label :name, "Full Name:", class: "label"%>
-        <div class="control">
-          <%= form.text_field :name %>
+        <div class="control is-expanded">
+          <%= form.text_field :name, class: "input" %>
         </div>
       </div>
       <!-- name input -->
       <div class="field">
         <%= form.label :address, "Address:", class: "label"%>
         <div class="control">
-          <%= form.text_field :address %>
+          <%= form.text_field :address, class: "input" %>
         </div>
       </div>
-      <!-- province input -->
-      <div class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <div class="field">
-              <%= form.label :province_id, "Province:", class: "label" %>
-              <div class="control">
-                <span class="select">
-                  <%= form.collection_select :province_id, @provinces, :id, :abbr %>
-                </span>
-              </div>
+      <div class="columns">
+        <!-- province input -->
+        <div class="column is-one-third">
+          <div class="field">
+            <%= form.label :province_id, "Province:", class: "label" %>
+            <div class="control is-expanded">
+              <span class="select is-fullwidth">
+                <%= form.collection_select :province_id, @provinces, :id, :abbr %>
+              </span>
             </div>
           </div>
-          <!-- postal input -->
-          <div class="level-item">
-            <div class="field">
-              <%= form.label :postal_code, "Postal Code:", class: "label"%>
-              <div class="control">
-                <%= form.text_field :postal_code, class: "input" %>
-              </div>
+        </div>
+        <!-- postal input -->
+        <div class="column is-justify-content-flex-start">
+          <div class="field">
+            <%= form.label :postal_code, "Postal Code:", class: "label"%>
+            <div class="control is-expanded">
+              <%= form.text_field :postal_code, class: "input" %>
             </div>
           </div>
         </div>
       </div>
       <div class="control">
-        <%= form.button "Continue as guest", class: "button" %>
+        <%= form.button "Continue", class: "button" %>
       </div>
-    <%end%>
-  </div>
+    </div>
+  <%end%>
 </div>
