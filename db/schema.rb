@@ -10,12 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_04_202124) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_06_143740) do
   create_table "abouts", force: :cascade do |t|
     t.text "contact"
     t.text "about"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "store_desc"
+    t.text "location"
+    t.text "hours"
+    t.text "phone"
+    t.text "email"
   end
 
   create_table "active_admin_comments", force: :cascade do |t|

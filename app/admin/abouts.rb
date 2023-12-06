@@ -5,7 +5,7 @@ ActiveAdmin.register About do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :contact, :about
+  permit_params :contact, :about, :store_desc, :location, :hours, :phone, :email
   #
   # or
   #
