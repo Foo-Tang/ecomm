@@ -4,17 +4,17 @@ class OrdersController < ApplicationController
     order = Order.new()
     order.customer = @customer
     order.taxcode = @customer.province.tax_code
-    order.orderstatus = Orderstatus.where(:status => 'new').first
+    order.orderstatus = Orderstatus.where(:status => "new").first
     order.save
 
-    subtotal = 0.00
+    @subtotal = 0.00
     session[:shopping_cart].each do |id|
       product = Product.find(id)
       item = order.productorders.create(product_id: product.id, sellprice: product.price, quantity: 1)
-      subtotal += (item.sellprice * item.quantity)
+      @subtotal += (item.sellprice * item.quantity)
     end
 
-    @taxes = (Taxcode.find(order.taxcode).applicable) * subtotal
+    @taxes = (Taxcode.find(order.taxcode).applicable) * @subtotal
     session[:order] = order.id
   end
 
