@@ -7,13 +7,13 @@ class ProductsController < ApplicationController
 
   def search
     if params[:search].present?
-      @products = Product.where("name LIKE ?", "%#{params[:search].downcase}%")
+      @products = Product.where("name LIKE ?", "%#{params[:search].downcase}%").page params[:page]
     end
 
     return unless params[:set].present? && params[:set] != "All Categories"
 
     @products = Product.where("name LIKE ?",
-                              "%#{params[:search].downcase}%").where(producttype_id: params[:set])
+                              "%#{params[:search].downcase}%").where(producttype_id: params[:set]).page params[:page]
   end
 
   def new
