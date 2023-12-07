@@ -8,13 +8,14 @@ class OrdersController < ApplicationController
     order.save
 
     @subtotal = 0.00
+    taxrate = Taxcode.find(order.taxcode).applicable
     session[:shopping_cart].each do |id|
       product = Product.find(id)
-      item = order.productorders.create(product_id: product.id, sellprice: product.price, quantity: 1)
+      item = order.productorders.create(product_id: product.id, sellprice: product.price, quantity: 1, taxrate: taxrate)
       @subtotal += (item.sellprice * item.quantity)
     end
 
-    @taxes = (Taxcode.find(order.taxcode).applicable) * @subtotal
+    @taxes = taxrate * @subtotal
     session[:order] = order.id
   end
 
