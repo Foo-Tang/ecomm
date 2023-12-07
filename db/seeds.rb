@@ -1,5 +1,6 @@
 require 'csv'
 require 'net/http'
+require 'faker'
 
 Productorder.destroy_all
 Order.destroy_all
@@ -48,6 +49,7 @@ data.each do |row|
   if producttype.valid? && wrestler.valid?
     product = Product.find_or_initialize_by(name: row['product'].strip) do |p|
       if p.price.blank?
+        p.description = Faker::Lorem.sentence
         p.producttype = producttype
         p.price = row['price']
         p.stocklevel = rand(5..100)
