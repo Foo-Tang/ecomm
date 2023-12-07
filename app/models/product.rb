@@ -13,5 +13,5 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :price, numericality: true
-  validates :stocklevel, numericality: {only_integer: true}
+  validates :stocklevel, numericality: { only_integer: true }
 end
