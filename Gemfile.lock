@@ -326,6 +326,7 @@ GEM
 
 PLATFORMS
   x86_64-linux
+  aarch64-linux
 
 DEPENDENCIES
   activeadmin (~> 2.14.0)
