@@ -38,6 +38,10 @@ COPY --link . .
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
+# Adjust binfiles to be executable on Linux
+RUN sed -i "s/\r$//g" bin/* && \
+    sed -i 's/ruby\r$/ruby/' bin/*
+
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE=DUMMY ./bin/rails assets:precompile
 
@@ -55,7 +59,10 @@ COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
+ARG UID=1000 \
+    GID=1000
+RUN groupadd -f -g $GID rails && \
+    useradd -u $UID -g $GID rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
 USER rails:rails
 
