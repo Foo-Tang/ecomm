@@ -80,7 +80,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_161338) do
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "province"
     t.string "postal_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
