@@ -1,5 +1,6 @@
 # Powerslamverse E-commerce store
 Foo Tang & Chelsea Bahsler
+https://powerslamverse.fly.dev
 
 A fullstack ecommerce store for the wrestling company Powerslam Universe.
 
