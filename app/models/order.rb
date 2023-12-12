@@ -3,4 +3,6 @@ class Order < ApplicationRecord
   belongs_to :orderstatus
   has_many :productorders
   has_many :product, through: :productorders
+
+
 end

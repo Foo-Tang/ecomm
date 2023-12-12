@@ -8,6 +8,7 @@ gem "devise"
 
 gem "kaminari"
 gem "breadcrumbs_on_rails"
+gem "faker"
 
 gem "stripe"
 
